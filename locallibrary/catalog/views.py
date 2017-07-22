@@ -124,19 +124,44 @@ def renew_book_librarian(request, pk):
 
 
 # By default, redirects on success to page displaying newly created/edited model item
-class AuthorCreate(CreateView):
+class AuthorCreate(PermissionRequiredMixin, CreateView):
+    permission_required = 'catalog.can_mark_returned'
     model = Author
     fields = '__all__'
     # initial={'date_of_death':'12/10/2016',} # Set default with key:value pairs
 
 
 # By default, redirects on success to page displaying newly created/edited model item
-class AuthorUpdate(UpdateView):
+class AuthorUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = 'catalog.can_mark_returned'
     model = Author
     fields = ['first_name','last_name','date_of_birth','date_of_death']
 
 
-class AuthorDelete(DeleteView):
+class AuthorDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = 'catalog.can_mark_returned'
     model = Author
     # used here because we're providing a URL to a class-based view attribute
     success_url = reverse_lazy('authors') # Override redirect
+
+
+# By default, redirects on success to page displaying newly created/edited model item
+class BookCreate(PermissionRequiredMixin, CreateView):
+    permission_required = 'catalog.can_mark_returned'
+    model = Book
+    fields = '__all__'
+    # initial={'date_of_death':'12/10/2016',} # Set default with key:value pairs
+
+
+# By default, redirects on success to page displaying newly created/edited model item
+class BookUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = 'catalog.can_mark_returned'
+    model = Book
+    fields = '__all__'
+
+
+class BookDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = 'catalog.can_mark_returned'
+    model = Book
+    # used here because we're providing a URL to a class-based view attribute
+    success_url = reverse_lazy('books') # Override redirect

@@ -2,6 +2,13 @@
 
 {% block title %}<title>Local Library: {{ book.title }}</title>{% endblock %}
 
+{% block sidebar_edit_model %}
+<ul class="sidebar-nav">
+    <li><a href="{% url 'book_update' book.pk %}">Update Book</a></li>
+    <li><a href="{% url 'book_delete' book.pk %}">Delete Book</a></li>
+</ul>
+{% endblock %}
+
 {% block content %}
   <h1>Title: {{ book.title }}</h1>
 
